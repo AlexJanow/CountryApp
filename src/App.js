@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import CountryFetch from "./components/CountryFetch";
+import { useState, useEffect } from "react";
+import Play from "./components/Play";
+import Header from "./components/Header";
 
 function App() {
+  const [isActive, setActive] = useState("false");
+
+  const handleToggle = () => {
+    setActive(!isActive);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper__main">
+      <Header />
+      <Play />
+      <div className="container__play">
+        <button onClick={handleToggle} className="button__play">
+          play
+        </button>
+      </div>
+      <div className={`wrapper ${isActive ? "hidden" : ""}`}>
+        <CountryFetch />
+      </div>
     </div>
   );
 }
