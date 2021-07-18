@@ -17,7 +17,7 @@ function App() {
 
       <div className="container__play">
         <button onClick={handleToggle} className="button__play">
-          play
+          {isActive ? "play" : "back to library"}
         </button>
       </div>
       <div className={`wrapper ${isActive ? "" : "hidden"}`}>
