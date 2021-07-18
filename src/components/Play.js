@@ -9,6 +9,42 @@ export default function Play() {
   const numArray = Array.from(Array(250).keys());
   const randomNumber = Math.floor(Math.random() * numArray.length);
 
+  const [isActive, setActive] = useState("false");
+
+  const handleClickNew = () => {
+    setActive(!isActive);
+  };
+
+  function NewCountry(isActive) {
+    if (isActive) {
+      return items
+        .filter((item) => item.name === items[randomNumber].name)
+        .map((item) => (
+          <li>
+            <article className="card" key={item.callingCodes}>
+              <div className="card-image">
+                <img src={item.flag} alt={item.name} />
+              </div>
+              <div className="card-content">
+                <h2 className="card-name">{item.name}</h2>
+                <ol className="card-list">
+                  <li>
+                    population: <span>{item.population}</span>
+                  </li>
+                  <li>
+                    Region: <span>{item.region}</span>
+                  </li>
+                  <li>
+                    Capital: <span>{item.capital}</span>
+                  </li>
+                </ol>
+              </div>
+            </article>
+          </li>
+        ));
+    }
+  }
+
   useEffect(() => {
     fetch("https://restcountries.eu/rest/v2/all")
       .then((res) => res.json())
@@ -35,34 +71,12 @@ export default function Play() {
     return (
       /* here we map over the element and display each item as a card  */
       <div className="wrapper">
-        <button>lol</button>
-        <ul className="card-grid">
-          {items
-            .filter((item) => item.name === items[randomNumber].name)
-            .map((item) => (
-              <li>
-                <article className="card" key={item.callingCodes}>
-                  <div className="card-image">
-                    <img src={item.flag} alt={item.name} />
-                  </div>
-                  <div className="card-content">
-                    <h2 className="card-name">{item.name}</h2>
-                    <ol className="card-list">
-                      <li>
-                        population: <span>{item.population}</span>
-                      </li>
-                      <li>
-                        Region: <span>{item.region}</span>
-                      </li>
-                      <li>
-                        Capital: <span>{item.capital}</span>
-                      </li>
-                    </ol>
-                  </div>
-                </article>
-              </li>
-            ))}
-        </ul>
+        <button onClick={handleClickNew}>lol</button>
+        <div className="newCard">
+          <ul className="card-grid">
+            <NewCountry onClick={handleClickNew} />
+          </ul>
+        </div>
       </div>
     );
   }
