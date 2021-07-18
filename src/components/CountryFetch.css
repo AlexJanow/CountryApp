@@ -32,7 +32,7 @@ h2 {
 .wrapper {
   width: 96%;
   max-width: 1140px;
-  margin: 0 auto;
+  margin: auto;
 }
 .card-grid {
   margin: 2em 0;

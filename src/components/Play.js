@@ -71,9 +71,13 @@ export default function Play() {
     return (
       /* here we map over the element and display each item as a card  */
       <div className="wrapper">
-        <button onClick={handleClickNew}>lol</button>
+        <div className="div__button__newCard">
+          <button className="button__newCard" onClick={handleClickNew}>
+            new card
+          </button>
+        </div>
         <div className="newCard">
-          <ul className="card-grid">
+          <ul className="ul__NewCountry">
             <NewCountry onClick={handleClickNew} />
           </ul>
         </div>
