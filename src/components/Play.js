@@ -1,11 +1,69 @@
 import React from "react";
 import "./Play.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Play() {
-  return (
-    <div>
-      <h1>lol it works</h1>;
-    </div>
-  );
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+  const numArray = Array.from(Array(250).keys());
+  const randomNumber = Math.floor(Math.random() * numArray.length);
+
+  useEffect(() => {
+    fetch("https://restcountries.eu/rest/v2/all")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  }, []);
+
+  if (error) {
+    return <>{error.message}</>;
+  } else if (!isLoaded) {
+    return <>loading...</>;
+  } else {
+    return (
+      /* here we map over the element and display each item as a card  */
+      <div className="wrapper">
+        <button>lol</button>
+        <ul className="card-grid">
+          {items
+            .filter((item) => item.name === items[randomNumber].name)
+            .map((item) => (
+              <li>
+                <article className="card" key={item.callingCodes}>
+                  <div className="card-image">
+                    <img src={item.flag} alt={item.name} />
+                  </div>
+                  <div className="card-content">
+                    <h2 className="card-name">{item.name}</h2>
+                    <ol className="card-list">
+                      <li>
+                        population: <span>{item.population}</span>
+                      </li>
+                      <li>
+                        Region: <span>{item.region}</span>
+                      </li>
+                      <li>
+                        Capital: <span>{item.capital}</span>
+                      </li>
+                    </ol>
+                  </div>
+                </article>
+              </li>
+            ))}
+        </ul>
+      </div>
+    );
+  }
 }
