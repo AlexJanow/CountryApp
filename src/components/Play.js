@@ -1,6 +1,7 @@
 import React from "react";
 import "./Play.css";
 import { useState, useEffect } from "react";
+import unknown from "./img/unknown.png";
 
 export default function Play() {
   const [error, setError] = useState(null);
@@ -15,6 +16,11 @@ export default function Play() {
     setActive(!isActive);
   };
 
+  const [isActiveNames, setActiveNames] = useState("false");
+  const handleClickGuess = () => {
+    setActiveNames(!isActiveNames);
+  };
+
   function NewCountry(isActive) {
     if (isActive) {
       return items
@@ -23,10 +29,15 @@ export default function Play() {
           <li>
             <article className="card" key={item.callingCodes}>
               <div className="card-image">
-                <img src={item.flag} alt={item.name} />
+                <img
+                  src={isActiveNames ? unknown : item.flag}
+                  alt={item.name}
+                />
               </div>
               <div className="card-content">
-                <h2 className="card-name">{item.name}</h2>
+                <h2 className="card-name">
+                  {isActiveNames ? item.name : null}
+                </h2>
                 <ol className="card-list">
                   <li>
                     population: <span>{item.population}</span>
@@ -74,6 +85,11 @@ export default function Play() {
         <div className="div__button__newCard">
           <button className="button__newCard" onClick={handleClickNew}>
             new card
+          </button>
+        </div>
+        <div className="div__buttonGuessNames">
+          <button className="button__guessNames" onClick={handleClickGuess}>
+            {isActiveNames ? "guess names" : "guess flags"}
           </button>
         </div>
         <div className="newCard">
