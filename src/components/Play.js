@@ -3,5 +3,9 @@ import "./Play.css";
 import { useState } from "react";
 
 export default function Play() {
-  return null;
+  return (
+    <div>
+      <h1>lol it works</h1>;
+    </div>
+  );
 }

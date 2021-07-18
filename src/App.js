@@ -14,14 +14,17 @@ function App() {
   return (
     <div className="wrapper__main">
       <Header />
-      <Play />
+
       <div className="container__play">
         <button onClick={handleToggle} className="button__play">
           play
         </button>
       </div>
-      <div className={`wrapper ${isActive ? "hidden" : ""}`}>
+      <div className={`wrapper ${isActive ? "" : "hidden"}`}>
         <CountryFetch />
+      </div>
+      <div className={`wrapper__play ${isActive ? "hidden" : ""}`}>
+        <Play />
       </div>
     </div>
   );
